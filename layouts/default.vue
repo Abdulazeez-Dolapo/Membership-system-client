@@ -8,18 +8,21 @@
       app
     >
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
+        <v-list-item to="/" router exact>
           <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>mdi-apps</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title v-text="'Home'" />
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item to="/profile" router exact v-if="$auth.$state.loggedIn">
+          <v-list-item-action>
+            <v-icon>mdi-chart-bubble</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="'Profile'" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -38,7 +41,7 @@
       </v-btn>
 
       <template v-if="$auth.$state.loggedIn">
-        <v-btn :to="`/dashboard`" class="text-capitalize" text>
+        <v-btn :to="`/profile`" class="text-capitalize" text>
           {{ $auth.$state.user.username }}
         </v-btn></template
       >
@@ -71,19 +74,7 @@ export default {
       drawer: false,
       fixed: false,
       miniVariant: false,
-      title: "Members App",
-      items: [
-        {
-          icon: "mdi-apps",
-          title: "Home",
-          to: "/"
-        },
-        {
-          icon: "mdi-chart-bubble",
-          title: "Dashboard",
-          to: `/dashboard`
-        }
-      ]
+      title: "Members App"
     };
   },
   methods: {
