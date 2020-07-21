@@ -1,8 +1,11 @@
 import colors from "vuetify/es5/util/colors";
-const URL = "localhost:4000";
+const URL = "http://localhost:4000";
 
 export default {
   mode: "universal",
+  generate: {
+    fallback: true
+  },
   /*
    ** Headers of the page
    */
@@ -41,7 +44,8 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    "@nuxtjs/auth"
   ],
   /*
    ** Axios module configuration
@@ -52,7 +56,8 @@ export default {
   },
 
   proxy: {
-    "/api": URL
+    "/api": URL,
+    proxy: true
   },
   /*
    ** vuetify module configuration
@@ -61,7 +66,7 @@ export default {
   vuetify: {
     customVariables: ["~/assets/variables.scss"],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -83,5 +88,24 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            propertyName: "token",
+            url: "/api/auth/login",
+            method: "post"
+          },
+          logout: true,
+          user: {
+            url: "/api/auth/member",
+            method: "get",
+            propertyName: "member"
+          }
+        }
+      }
+    }
   }
 };
