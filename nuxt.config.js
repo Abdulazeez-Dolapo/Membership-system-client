@@ -1,5 +1,5 @@
 import colors from "vuetify/es5/util/colors";
-const URL = "http://localhost:4000";
+const URL = "https://membership-system-server.herokuapp.com/";
 
 export default {
   mode: "universal",
@@ -56,8 +56,7 @@ export default {
   },
 
   proxy: {
-    "/api": URL,
-    proxy: true
+    "/api": URL
   },
   /*
    ** vuetify module configuration
