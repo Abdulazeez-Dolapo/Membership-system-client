@@ -8,6 +8,17 @@
       app
     >
       <v-list>
+        <v-list-item v-if="$auth.$state.loggedIn" to="/profile" router exact>
+          <v-list-item-avatar>
+            <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{
+              $auth.$state.user.username
+            }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item to="/" router exact>
           <v-list-item-action>
             <v-icon>mdi-apps</v-icon>
@@ -25,6 +36,15 @@
             <v-list-item-title v-text="'Profile'" />
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item @click="logout" v-if="$auth.$state.loggedIn">
+          <v-list-item-action>
+            <v-icon>mdi-chart-bubble</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="'Logout'" />
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -36,7 +56,7 @@
         Login
       </v-btn>
 
-      <v-btn text @click="logout" class="ma-0" v-else>
+      <v-btn text @click="logout" class="ma-0 d-none d-sm-inline-block" v-else>
         Logout
       </v-btn>
 
