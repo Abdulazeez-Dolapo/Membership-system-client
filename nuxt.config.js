@@ -56,7 +56,7 @@ export default {
   },
 
   proxy: {
-    "/api": URL
+    "/api": URL,
   },
   /*
    ** vuetify module configuration
